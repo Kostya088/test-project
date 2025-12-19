@@ -4,8 +4,6 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css';
 
-let aboutUsSwiper = null;
-
 function updateNavigationState(swiper) {
   const prevEl = swiper?.navigation?.prevEl;
   const nextEl = swiper?.navigation?.nextEl;
@@ -77,7 +75,7 @@ function initAboutUsSwiper() {
 }
 
 function runInit() {
-  aboutUsSwiper = initAboutUsSwiper();
+  initAboutUsSwiper();
 }
 
 if (document.readyState === 'loading') {
