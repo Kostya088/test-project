@@ -1,10 +1,9 @@
 import axios from 'axios';
-import iziToast from 'izitoast';
-import 'izitoast/dist/css/iziToast.min.css';
+import { showError, showSuccess } from './toast-util.js';
 
 const api = axios.create({
   baseURL: 'https://paw-hut.b.goit.study/api',
-  });
+});
 
 const refs = {
   overlay: document.querySelector('.order-modal-overlay'),
@@ -23,15 +22,11 @@ let animalId = null;
    OPEN MODAL BY CUSTOM EVENT
 ========================= */
 
-window.addEventListener('open-order-modal', event => {
+window.addEventListener('open-order-modal', async event => {
   const petId = event?.detail?.petId;
 
   if (!petId) {
-    iziToast.error({
-      title: 'Помилка',
-      message: 'Не вдалося визначити тварину для заявки',
-      position: 'topRight',
-    });
+    await showError('Не вдалося визначити тварину для заявки');
     return;
   }
 
@@ -44,7 +39,6 @@ window.addEventListener('open-order-modal', event => {
 ========================= */
 
 function openModal() {
-  
   refs.overlay.classList.add('is-open');
   document.documentElement.classList.add('modal-open');
   document.body.classList.add('modal-open');
@@ -61,9 +55,9 @@ function closeModal() {
   document.body.classList.remove('modal-open');
 
   refs.form.reset();
-    
+
   refs.submitBtn.disabled = true;
-    
+
   clearFieldError(refs.nameInput);
   clearFieldError(refs.phoneInput);
   clearFieldError(refs.commentInput);
@@ -100,7 +94,7 @@ refs.form.addEventListener('submit', async event => {
 
   const phone = normalizePhone(rawPhone);
 
-  if (!validateForm(name, phone, comment)) {
+  if (!(await validateForm(name, phone, comment))) {
     return;
   }
 
@@ -114,19 +108,10 @@ refs.form.addEventListener('submit', async event => {
   try {
     await api.post('/orders', payload);
 
-    iziToast.success({
-      title: 'Успішно',
-      message: 'Заявку відправлено',
-      position: 'topRight',
-    });
-
+    await showSuccess('Заявку відправлено');
     closeModal();
   } catch (error) {
-    iziToast.error({
-      title: 'Помилка',
-      message: 'Не вдалося відправити заявку',
-      position: 'topRight',
-    });
+    await showError('Не вдалося відправити заявку');
   }
 });
 
@@ -134,7 +119,7 @@ refs.form.addEventListener('submit', async event => {
    VALIDATION
 ========================= */
 
-function validateForm(name, phone, comment) {
+async function validateForm(name, phone, comment) {
   let isValid = true;
 
   clearFieldError(refs.nameInput);
@@ -142,8 +127,8 @@ function validateForm(name, phone, comment) {
   clearFieldError(refs.commentInput);
 
   if (!name || name.length < 3 || name.length > 32) {
-  setFieldError(refs.nameInput, 'Імʼя має бути від 3 до 32 символів');
-  isValid = false;
+    setFieldError(refs.nameInput, 'Імʼя має бути від 3 до 32 символів');
+    isValid = false;
   }
 
   if (!phone || !/^[0-9]{12}$/.test(phone)) {
@@ -160,10 +145,7 @@ function validateForm(name, phone, comment) {
   }
 
   if (!animalId) {
-    iziToast.error({
-      message: 'Не обрано тварину',
-      position: 'topRight',
-    });
+    await showError('Не обрано тварину');
     isValid = false;
   }
 
@@ -220,11 +202,7 @@ refs.phoneInput.addEventListener('input', () => {
   value = value.replace(/[^0-9+]/g, '');
 
   if (value.includes('+')) {
-    value =
-      '+' +
-      value
-        .replace(/\+/g, '')
-        .replace(/^/, '');
+    value = '+' + value.replace(/\+/g, '').replace(/^/, '');
   }
 
   refs.phoneInput.value = value;
