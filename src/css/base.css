@@ -5,20 +5,40 @@
   --scheme1-background: #f6f4f1;
   --scheme1-foreground: #eee9e3;
   --scheme1-text: #02060a;
+  --scheme1-border: rgba(2, 6, 10, 0.15);
+  --scheme1-accent: #c3b49d;
   /* Scheme 2 */
   --scheme2-background: #c3b49d;
   --scheme2-foreground: #88765c;
   --scheme2-text: #fff;
+  --scheme2-border: rgba(255, 255, 255, 0.2);
+  --scheme2-accent: #fff;
   /* Neutral */
   --neutral-lightest: #f2f2f2;
+  --neutral-lighter: #d9d9da;
+  --neutral-light: #b3b4b5;
   --neutral: #808284;
+  --neutral-dark: #4d5053;
+  --neutral-darker: #1b1e22;
   --neutral-darkest: #02060a;
   /* Transparency */
   --transparent: rgba(255, 255, 255, 0);
+  --white-5: rgba(255, 255, 255, 0.05);
+  --white-10: rgba(255, 255, 255, 0.1);
+  --white-15: rgba(255, 255, 255, 0.15);
   --white-20: rgba(255, 255, 255, 0.2);
   --white-30: rgba(255, 255, 255, 0.3);
+  --white-40: rgba(255, 255, 255, 0.4);
+  --white-50: rgba(255, 255, 255, 0.5);
+  --white-60: rgba(255, 255, 255, 0.6);
 
   --neutral-darkest-5: rgba(2, 6, 10, 0.05);
+  --neutral-darkest-10: rgba(2, 6, 10, 0.1);
+  --neutral-darkest-15: rgba(2, 6, 10, 0.15);
+  --neutral-darkest-20: rgba(2, 6, 10, 0.2);
+  --neutral-darkest-30: rgba(2, 6, 10, 0.3);
+  --neutral-darkest-40: rgba(2, 6, 10, 0.4);
+  --neutral-darkest-50: rgba(2, 6, 10, 0.5);
   --neutral-darkest-60: rgba(2, 6, 10, 0.6);
 
   --red: #ae0000;
